@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>De zaak Ötzi – Forensisch onderzoek</title>
+<style>
+:root{
+ --blue:#3f78b5;--green:#3f9a68;--orange:#d98b2b;--red:#c95353;
+ --ink:#18222d;--muted:#657383;--line:#d6dde5;--paper:#faf8f2;--navy:#172b3d
+}
+*{box-sizing:border-box}
+body{margin:0;background:#e9edf1;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+.app{max-width:1080px;margin:auto;background:#fff;min-height:100vh}
+header{background:var(--navy);color:#fff;padding:24px 30px;border-bottom:7px solid var(--blue)}
+.kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#b9cce0}
+h1{font-size:39px;margin:7px 0}.subtitle{color:#d5e0eb}
+main{padding:24px 30px}.topnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.stepinfo{font-weight:700;color:#405468}.navbuttons{display:flex;gap:8px;flex-wrap:wrap}.navbuttons button{margin:0}.progress{height:9px;background:#dfe5eb;border-radius:10px;margin-bottom:22px}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:10px;transition:.3s}
+.card{border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px;background:#fff}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:20px}.hero img{width:100%;height:100%;min-height:310px;object-fit:cover;border-radius:13px}
+h2{font-size:29px;margin:0 0 10px}h3{margin:7px 0 8px}.small{font-size:13px;color:var(--muted)}
+.badge{display:inline-block;padding:6px 10px;border-radius:20px;background:#edf2f6;color:#38506a;font-size:12px;font-weight:bold}
+button{border:0;border-radius:11px;padding:13px 17px;margin:6px 5px 6px 0;font-size:15px;font-weight:700;cursor:pointer;background:var(--blue);color:#fff}
+button.green{background:var(--green)}button.orange{background:var(--orange)}button.red{background:var(--red)}
+button.secondary{background:#eef2f5;color:#253546;border:1px solid #cbd5df}
+button.choice{display:block;width:100%;text-align:left;background:#f6f8fa;color:var(--ink);border:1px solid #d2dae3}
+button.choice:hover{background:#edf4fa}
+textarea,input,select{width:100%;border:1px solid #bac6d2;border-radius:10px;padding:12px;font:inherit;margin:5px 0 14px;background:#fbfcfd}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.colorbar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.pill{padding:13px;border-radius:10px;color:white;font-weight:bold}.blue{background:var(--blue)}.greenbg{background:var(--green)}.orangebg{background:var(--orange)}.redbg{background:var(--red)}
+.taskbox{padding:16px 18px;border-radius:14px;background:#f7fafc;border:1px solid #d7e1e9;margin:12px 0}.taskbox strong{color:#20384c}.source-preview{background:#fffdf7;border:1px solid #d9d0bd;border-radius:12px;padding:16px;line-height:1.6;max-height:360px;overflow:auto}.source-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.meta{background:#f1f4f6;border-radius:9px;padding:9px;font-size:13px}.modal{position:fixed;inset:0;background:rgba(12,22,32,.68);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}.modalbox{background:white;max-width:850px;width:100%;max-height:90vh;overflow:auto;border-radius:18px;padding:24px}.modalbox .close{float:right}.callout{padding:15px 17px;border-radius:12px;background:#f1f5f8;border-left:5px solid var(--blue);margin:12px 0}
+.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.evidence-card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.evidence-card img{width:100%;height:185px;object-fit:cover;background:#eef2f5;display:block}.e-imgwrap{position:relative;background:#eef2f5}.img-caption{position:absolute;left:10px;bottom:10px;background:rgba(24,34,45,.78);color:#fff;padding:5px 8px;border-radius:7px;font-size:11px}.img-fallback{height:185px;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#eef2f5,#eef2f5 12px,#e4e9ee 12px,#e4e9ee 24px)}.img-fallback:before{content:"Onderzoeksbeeld niet beschikbaar";color:#657383;font-size:13px}.e-body{padding:15px}
+.source-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.source{border:1px solid var(--line);border-radius:14px;padding:17px;background:#fff}
+.source .source-type{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
+.rating{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}.rating button{margin:0;background:#eef2f5;color:#26384a;border:1px solid #ccd6df}
+.poster{background:var(--paper);border:1px solid #d7cfbf;border-radius:12px;padding:25px;position:relative}
+.poster-head{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;border-bottom:2px solid #333;padding-bottom:15px}
+.poster-main-img{width:150px;height:180px;object-fit:cover;border-radius:8px}
+.poster-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:15px}
+.poster-box{border:2px solid #333;padding:12px;min-height:150px;background:#fff}
+.poster-box h3{font-family:Arial;font-size:16px;text-transform:uppercase}
+.poster-box textarea{border:0;background:transparent;min-height:95px;margin:0;font-family:Georgia,serif}
+.poster-foot{margin-top:15px;border-top:2px solid #333;padding-top:12px}
+.hidden{display:none}.done{padding:14px;border-radius:10px;background:#e9f5ee;border-left:5px solid var(--green)}
+.warn{padding:14px;border-radius:10px;background:#fff3df;border-left:5px solid var(--orange)}
+footer{padding:0 30px 30px;font-size:12px;color:#718090}
+
+.source-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.source-pages{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.source-pages img{width:100%;border:1px solid var(--line);border-radius:10px;background:#fff}.source-fullnote{background:#eef5fb;border:1px solid #c9ddec;border-radius:12px;padding:13px;margin:12px 0}.selected-source{border:2px solid var(--green);background:#f8fcfa}.extra-source{border:2px dashed #c9ddec;background:#fbfdff}.source-smallbtn{font-size:13px;padding:9px 12px}.search-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}.source-badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#edf2f5;font-size:12px;font-weight:700;margin:3px}.source-view-card{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;margin-bottom:12px}
+
+@media(max-width:720px){.hero,.grid2,.grid3,.source-grid,.evidence-grid,.poster-grid{grid-template-columns:1fr}.colorbar{grid-template-columns:repeat(2,1fr)}.poster-head{grid-template-columns:1fr}.poster-main-img{width:100%;height:220px}h1{font-size:31px}main{padding:18px}}
+@media print{
+ body{background:white}.app{max-width:none}.no-print,header,footer,.progress{display:none!important}
+ main{padding:0}.poster{border:0}.poster-box{break-inside:avoid}
+}
+
+.print-poster{display:none}
+.body-sheet{position:relative;display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:18px;align-items:center;margin-top:18px}
+.body-figure{display:flex;justify-content:center;align-items:center;min-height:650px}
+.body-figure svg{width:100%;max-width:360px;height:650px}
+.label-box{border:2px solid #222;background:#fff;min-height:115px;padding:12px;margin:12px 0;font-family:Arial}
+.label-box h4{margin:0 0 8px;font-size:15px}
+.label-box .write-lines{height:70px;border-bottom:1px dashed #aaa;background:repeating-linear-gradient(to bottom,transparent 0,transparent 22px,#ddd 23px)}
+.sheet-title{border-bottom:2px solid #222;padding-bottom:8px;margin-bottom:8px}
+@media print{
+  body{background:white!important}
+  header,nav,main>.card:not(.print-card),.topbar,.print-hide{display:none!important}
+  .print-card{display:block!important;border:0!important;box-shadow:none!important;padding:0!important}
+  .print-poster{display:block!important}
+  @page{size:A3 landscape;margin:10mm}
+  .print-poster h1{font-size:28px;margin:0}
+  .print-poster p{font-size:12px}
+}
+</style>
+
+<style>
+#accessGate{position:fixed;inset:0;z-index:99999;background:#f3f5f7;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
+#accessGate .gatebox{width:min(480px,100%);background:#fff;border:1px solid #d7dde3;border-radius:18px;padding:30px;box-shadow:0 12px 36px rgba(0,0,0,.12);text-align:center}
+#accessGate h2{margin:0 0 10px}
+#accessGate p{color:#657383}
+#accessCodeInput{width:100%;box-sizing:border-box;padding:13px 14px;border:2px solid #9baab6;border-radius:9px;font-size:18px;margin:10px 0 12px;text-align:center}
+#accessMsg{min-height:20px;margin-top:8px;color:#9b2c2c;font-size:14px}
+.storagebar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin:10px 0 0}
+.storagebar button{font-size:12px;padding:8px 12px}
+.storage-note{font-size:11px;color:#657383;margin:6px 0 0;text-align:right}
+#resumeFile{display:none}
+@media(max-width:720px){.storagebar{justify-content:flex-start}.storage-note{text-align:left}}
+</style>
+
+</head>
+<body>
+
+<div id="accessGate">
+  <div class="gatebox">
+    <span class="badge">DE ZAAK ÖTZI</span>
+    <h2>Voer de toegangscode in</h2>
+    <p>Deze website is bedoeld voor het onderzoeksteam. Voer de code in die je van je leerkracht hebt gekregen.</p>
+    <input id="accessCodeInput" type="password" autocomplete="off" spellcheck="false" placeholder="Toegangscode">
+    <button class="green" onclick="unlockSite()">START ONDERZOEK</button>
+    <div id="accessMsg" aria-live="polite"></div>
+  </div>
+</div>
+
+<div class="app" id="appRoot" style="display:none">
+<header class="no-print">
+<div class="kicker">Forensisch geschiedkundig onderzoek • Onderzoeksteam late prehistorie</div>
+<h1>De zaak Ötzi</h1>
+<div class="subtitle">Van brononderzoek naar een onderzoeksverslag en een publieks­poster</div>
+</header>
+<main>
+<div class="topnav no-print"><div id="stepinfo" class="stepinfo"></div><div class="navbuttons"><button id="backBtn" class="secondary" onclick="backStep()">← Terug</button><button id="homeBtn" class="secondary" onclick="go(0)">⌂ Overzicht</button></div></div><div class="progress no-print"><div id="bar" class="bar"></div></div>
+<div class="storagebar no-print">
+  <button class="secondary" onclick="downloadDossier()">ONDERZOEK OPSLAAN</button>
+  <button class="secondary" onclick="document.getElementById('resumeFile').click()">ONDERZOEK HERVATTEN</button>
+  <button class="secondary" onclick="clearProgress()">WIS ALLE VOORTGANG</button>
+</div>
+<input id="resumeFile" type="file" accept=".html,text/html,.json,application/json" onchange="importDossier(event)">
+<div class="storage-note no-print">Je voortgang wordt tussendoor automatisch in deze browser bewaard. Sla je onderzoek ook op als bestand voor extra zekerheid.</div>
+<div id="screen"></div>
+</main>
+<footer class="no-print">
+De afbeeldingen in deze interactieve les staan lokaal in de map afbeeldingen, zodat de les ook zonder internetverbinding blijft werken. Reconstructie/kleding/vindplaats zijn afkomstig uit het door de leerkracht aangeleverde bronmateriaal; de schematische bijl- en wondillustraties zijn speciaal voor deze les gemaakt. Inhoudelijke bronnen zijn onder meer het South Tyrol Museum of Archaeology, National Geographic en het door de leerkracht aangeleverde bronmateriaal.
+</footer>
+</div>
+
+<script>
+const S={
+ step:0, phase:1, chosen:[], notes:{who:"",what:"",where:"",why:""},
+ evidence:{}, evidenceLog:{}, sources:{}, openedSources:{}, extraSource:{title:"",url:"",why:""}, poster:{title:"Ötzi: de ijsmummie",names:"",appearance:"",clothing:"",objects:"",location:"",injuries:"",known:"",sources:""}, report:{title:"",names:"",situation:"",description:"",findings:""}
+};
+
+const IMG={
+ recon:"afbeeldingen/otzi_reconstructie.jpg",
+ clothing:"afbeeldingen/kleding.jpg",
+ axe:"afbeeldingen/bijl_schematisch.svg",
+ wound:"afbeeldingen/wond_schematisch.svg",
+ findspot:"afbeeldingen/vindplaats.jpg",
+ equipment:"afbeeldingen/uitrusting.jpg",
+ docthumb:"afbeeldingen/bron_werkblad.jpg",
+ video:"afbeeldingen/video_otzi.svg"
+};
+
+function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function go(n){captureCurrentFields();S.step=n;saveLocal();render();window.scrollTo(0,0)}
+function saveField(id){return document.getElementById(id)?.value||""}
+function render(){
+ document.getElementById("bar").style.width=Math.min(100,(S.step/13)*100)+"%";
+ const names=["Start","Onderzoeksafspraak","WWWW-bronnen","Aanwijzingen","Forensisch redeneren","Bronnenlab","Broncheck","Posterplan","Posteratelier","Posterblad","Schrijfcontrole","Verslag","Onderzoeksverslag","Afronden"];
+ document.getElementById("stepinfo").textContent=`Stap ${S.step} van 13 • ${names[S.step]}`;
+ document.getElementById("backBtn").disabled=S.step===0;
+ document.getElementById("backBtn").style.opacity=S.step===0?".45":"1";
+ let x="";
+ if(S.step===0)x=`
+ <div class="hero">
+  <div class="card">
+   <span class="badge">DOSSIER 01 • IJSVONDST</span>
+   <h2 style="margin-top:14px">Een lichaam uit het ijs</h2>
+   <div class="taskbox"><strong>Jouw opdracht:</strong> ontdek wie Ötzi was, wat er met hem gebeurde en welke informatie je met bronnen kunt bewijzen.</div><p>Jullie zijn een <b>forensisch-historisch onderzoeksteam</b>. Jullie onderzoeken een persoon die meer dan 5.000 jaar geleden leefde.</p>
+   <p>Jullie eindproduct wordt geen antwoordenlijst, maar een <b>onderzoeksdossier én een poster over Ötzi</b> die aan ouders kan worden getoond.</p>
+   <button class="green" onclick="go(1)">OPEN HET DOSSIER</button>
+  </div>
+  <img src="${IMG.recon}" alt="Wetenschappelijke reconstructie van Ötzi">
+ </div>`;
+
+ if(S.step===1)x=`
+ <div class="card">
+  <span class="badge">ONDERZOEKSPROTOCOL</span>
+  <h2>Van bron naar conclusie</h2>
+  <p>Een wetenschappelijk onderzoek werkt niet zo:</p>
+  <div class="callout">"Ik denk dat het zo zit, dus het zal wel waar zijn."</div>
+  <p>Jullie werken zo:</p>
+  <div class="colorbar">
+   <div class="pill blue">BRON<br><small>Waar komt het vandaan?</small></div>
+   <div class="pill greenbg">WAARNEMING<br><small>Wat staat er / wat zie je?</small></div>
+   <div class="pill orangebg">AANWIJZING<br><small>Wat kan dit betekenen?</small></div>
+   <div class="pill redbg">CONCLUSIE<br><small>Wat kun je onderbouwen?</small></div>
+  </div>
+  <p><b>Onderzoeksregel:</b> schrijf eerst op wat je werkelijk uit een bron kunt halen. Trek daarna pas een conclusie.</p>
+  <button onclick="go(2)">START HET BRONONDERZOEK</button>
+ </div>`;
+
+ if(S.step===2)x=`
+ <div class="card">
+  <span class="badge">FASE 1 • BRONNEN VERZAMELEN</span>
+  <h2>Onderzoek eerst zelf</h2>
+  <div class="taskbox"><strong>Doe nu dit:</strong> bekijk met je leerkracht de twee Schooltv-bronnen uit de oorspronkelijke les. Zet tijdens het kijken korte aantekeningen bij Wie, Wat, Waar en Waarom.</div>
+  <div class="callout">
+   <b>De twee filmpjes</b><br>
+   <a class="secondary source-smallbtn" href="https://schooltv.nl/video-item/vroeger-zo-oetzi-de-ijsmummie" target="_blank" rel="noopener">BEKIJK FILMPJE 1 • Ötzi de ijsmummie – Vroeger & Zo</a>
+   <a class="secondary source-smallbtn" href="https://schooltv.nl/video-item/wie-was-oetzi-de-ijsmummie-uit-de-kopertijd" target="_blank" rel="noopener">BEKIJK FILMPJE 2 • Wie was Ötzi?</a>
+   <p class="small" style="margin-bottom:0">De leerkracht bekijkt deze filmpjes met jullie. Je kunt ze hier ook zelf bekijken.</p>
+  </div>
+  <div class="grid2">
+   <div><label>Wie?</label><textarea id="who">${esc(S.notes.who)}</textarea></div>
+   <div><label>Wat?</label><textarea id="what">${esc(S.notes.what)}</textarea></div>
+   <div><label>Waar?</label><textarea id="where">${esc(S.notes.where)}</textarea></div>
+   <div><label>Waarom?</label><textarea id="why">${esc(S.notes.why)}</textarea></div>
+  </div>
+  <button class="blue" onclick="saveNotes()">AANTEKENINGEN VASTLEGGEN</button>
+ </div>`;
+
+ if(S.step===3)x=`
+ <div class="card">
+  <span class="badge">FASE 1 • AANWIJZINGEN</span>
+  <h2>Verzamel alle vier de aanwijzingen</h2>
+  <p>Open elke aanwijzing. Onderzoek hem en leg hem vast. <b>Je gaat pas verder als alle vier de aanwijzingen zijn onderzocht.</b></p>
+  <div class="taskbox"><strong>Jullie doel:</strong> verzamel genoeg informatie voor jullie poster en onderzoeksverslag. Je hoeft de vier aanwijzingen niet in een vaste volgorde te doen.</div>
+  <div class="evidence-grid">
+   ${eCard2("🧥","Kleding","Onderzoek wat de kleding vertelt over materiaal, bescherming en het leven in de bergen.",IMG.clothing)}
+   ${eCard2("🪓","Koperen bijl","Onderzoek wat dit bijzondere voorwerp vertelt over technologie en mogelijk de positie van Ötzi.",IMG.axe)}
+   ${eCard2("🏹","Pijlverwonding","Onderzoek wat de medische/forensische bron laat zien over de verwonding.",IMG.wound)}
+   ${eCard2("🏔️","Vindplaats","Onderzoek waar Ötzi werd gevonden en waarom de omgeving belangrijk is.",IMG.findspot)}
+  </div>
+  <div class="evidence-progress" style="margin-top:16px">
+   ${["Kleding","Koperen bijl","Pijlverwonding","Vindplaats"].map(t=>`<span class="badge" style="margin:3px;${S.evidenceLog[t]?'background:#e9f5ee;color:#236542':''}">${S.evidenceLog[t]?'✓ ':''}${t}</span>`).join('')}
+  </div>
+  <div id="eout"></div>
+  ${Object.keys(S.evidenceLog).length===4?`<div class="done" style="margin-top:16px"><b>Alle vier de aanwijzingen zijn vastgelegd.</b> Jullie kunnen nu naar het bronnenlab.</div><button class="green" onclick="go(5)">NAAR HET BRONNENLAB</button>`:`<div class="warn" style="margin-top:16px">Nog ${4-Object.keys(S.evidenceLog).length} aanwijzing${4-Object.keys(S.evidenceLog).length===1?'':'en'} te onderzoeken.</div>`}
+ </div>`;
+
+ if(S.step===4)x=`
+ <div class="card">
+  <span class="badge">FASE 1 • FORENSISCHE REDENERING</span>
+  <h2>Onderzoek één aanwijzing</h2>
+  <p><b>${esc(S.evidence.title||"Aanwijzing")}</b></p>
+  <img src="${S.evidence.img||IMG.recon}" alt="" style="width:100%;max-height:330px;object-fit:contain;background:#f3f5f7;border-radius:12px">
+  <label class="small">Wat zegt de bron letterlijk of duidelijk?</label>
+  <textarea id="sourceText" placeholder="Dit staat / zie ik in de bron...">${esc(S.evidence.sourceText)}</textarea>
+  <label class="small">Wat is jouw waarneming?</label>
+  <textarea id="observation" placeholder="Ik zie / lees...">${esc(S.evidence.observation)}</textarea>
+  <label class="small">Wat kan deze aanwijzing betekenen?</label>
+  <textarea id="meaning" placeholder="Dit zou kunnen betekenen...">${esc(S.evidence.meaning)}</textarea>
+  <button class="orange" onclick="saveEvidence()">AANWIJZING VASTLEGGEN EN TERUG</button>
+ </div>`;
+
+ if(S.step===5)x=`
+ <div class="card">
+  <span class="badge">FASE 1 • BRONNENLAB</span>
+  <h2>Welke bron zou jij gebruiken?</h2>
+  <p>Je krijgt nu verschillende bronnen over Ötzi. Je hoeft nog niet te weten welke bron betrouwbaar is. Onderzoek eerst <b>waarom</b> je een bron wel of niet zou gebruiken.</p>
+  <div class="source-grid">
+   ${sourceCard("A","South Tyrol Museum of Archaeology","Museum","Officiële museuminformatie over Ötzi, zijn kleding en uitrusting.","iceman.it",IMG.clothing)}
+   ${sourceCard("B","National Geographic — Who was Ötzi?","Journalistieke wetenschapsbron","Artikel over Ötzi met verwijzingen naar onderzoek en wetenschappers.","nationalgeographic.com",IMG.recon)}
+   ${sourceCard("C","Wie was Ötzi? — aangeleverd bronmateriaal","Educatieve tekst","Tekst van Jennifer Pinkowski, laatste update 21 september 2021, aangeleverd voor deze lessenserie.", "bron van de leerkracht",IMG.docthumb)}
+   ${sourceCard("D","Wikipedia — Ötzi","Online encyclopedie","Een pagina die door meerdere gebruikers kan worden aangepast en die naar bronnen verwijst.","wikipedia.org",IMG.findspot)}
+   ${sourceCard("E","The Curse of the Ötzi Mummy","Mysterie-/conspiratiewebsite","Een artikel dat de mogelijkheid van een vloek rond Ötzi bespreekt.","UFO Insight",IMG.equipment)}
+   ${sourceCard("F","VROEGER & ZO – Ötzi, de ijsmummie","Video / televisieprogramma","Een Nederlandse historische aflevering van 14 minuten en 29 seconden uit 2007, beschikbaar via Beeld & Geluid. De aflevering gebruikt onder meer nagespeelde scènes en bespreekt onderzoek naar Ötzi.","Beeld & Geluid / VROEGER & ZO",IMG.video)}
+  </div>
+  <div id="sourceResult"></div>
+  ${Object.keys(S.openedSources).length===6 ? `<div class="done" style="margin-top:18px"><b>Alle zes bronnen zijn bekeken.</b> Jullie kunnen nu naar de broncheck en per bron kiezen of jullie hem voor de poster zouden gebruiken.</div><button class="green" onclick="go(6)">NAAR DE BRONCHECK →</button>` : `<div class="warn" style="margin-top:18px">Bekijk en markeer eerst alle zes bronnen. Je hebt er nu ${Object.keys(S.openedSources).length} van de 6 bekeken.</div>`}
+ </div>`;
+
+ if(S.step===6)x=`
+ <div class="card">
+  <span class="badge">FASE 1 • BRONNENLAB</span>
+  <h2>De broncheck</h2>
+  <p>Kies voor elke bron of jij hem voor een schoolposter zou gebruiken.</p>
+  ${["A","B","C","D","E","F"].map(letter=>`
+   <div class="card" style="padding:14px">
+    <b>Bron ${letter}</b>
+    <select id="rate${letter}">
+     <option value="">Kies...</option><option value="gebruiken">Ik zou deze gebruiken</option><option value="twijfel">Ik twijfel</option><option value="niet">Ik zou deze niet als hoofdbron gebruiken</option>
+    </select>
+   </div>`).join("")}
+  <button onclick="saveSourceRatings()">CONTROLEER MIJN BRONKEUZES</button>
+  <div id="ratingsOut"></div>
+ </div>`;
+
+ if(S.step===7)x=`
+ <div class="card">
+  <span class="badge">FASE 1 • POSTERONDERZOEK</span>
+  <h2>Je weet nu wat je nodig hebt</h2>
+  <p>Voor de poster moet je minimaal kunnen laten zien:</p>
+  <div class="grid2">
+   <div class="callout"><b>Hoe zag Ötzi eruit?</b><br>Leeftijd, uiterlijk en andere kenmerken.</div>
+   <div class="callout"><b>Wat droeg hij?</b><br>Kleding en materialen.</div>
+   <div class="callout"><b>Wat had hij bij zich?</b><br>Voorwerpen en gereedschappen.</div>
+   <div class="callout"><b>Waar werd hij gevonden?</b><br>Vindplaats en omgeving.</div>
+   <div class="callout"><b>Welke verwondingen had hij?</b><br>Forensische bevindingen.</div>
+   <div class="callout"><b>Wat weten we zeker?</b><br>Maak onderscheid tussen feit en vermoeden.</div>
+  </div>
+  <p><b>Nu maak je de publieks­poster.</b> Gebruik alleen informatie die je uit je bronnen kunt onderbouwen.</p>
+  <button class="green" onclick="go(8)">OPEN POSTERATELIER</button>
+ </div>`;
+
+ if(S.step===8)x=`
+ <div class="card">
+  <span class="badge">FASE 2 • POSTERATELIER</span>
+  <h2>Maak jullie poster over Ötzi</h2>
+  <p>Dit wordt het concrete eindproduct dat later aan ouders kan worden getoond. Jullie bronnen blijven hier beschikbaar: je kunt ze opnieuw <b>bekijken</b> terwijl je schrijft.</p>
+
+  <div class="callout"><b>Jullie gekozen bronnen</b><br>Dit zijn de bronnen die jullie bij de broncheck hebben aangegeven als bronnen die jullie zouden gebruiken. Open ze opnieuw als je iets wilt controleren.</div>
+  <div id="chosenSourcesAtPoster">${chosenSourceCards()}</div>
+
+  <div class="callout extra-source">
+   <b>Zelf nog een extra bron zoeken</b>
+   <p>Je mag zelf nog één extra bron zoeken. Zoek bijvoorbeeld naar een museum, universiteit of wetenschapsorganisatie. Kijk goed wie de bron heeft gemaakt.</p>
+   <div class="search-row">
+    <div><label class="small">Wat zoek je?</label><input id="extraQuery" placeholder="bijvoorbeeld: Ötzi kleding museum"></div>
+    <button class="secondary source-smallbtn" onclick="searchExtraSource()">ZOEK OP HET WEB</button>
+   </div>
+   <div class="grid2" style="margin-top:10px">
+    <div><label class="small">Naam van je extra bron</label><input id="extraTitle" value="${esc(S.extraSource.title)}" placeholder="Naam van de website / bron"></div>
+    <div><label class="small">Link naar de bron</label><input id="extraUrl" value="${esc(S.extraSource.url)}" placeholder="https://..."></div>
+   </div>
+   <label class="small">Waarom wil je deze bron gebruiken?</label>
+   <textarea id="extraWhy" placeholder="Wat kan deze bron toevoegen aan jullie poster?">${esc(S.extraSource.why)}</textarea>
+   <button class="blue source-smallbtn" onclick="saveExtraSource()">EXTRA BRON TOEVOEGEN</button>
+   <div id="extraSourceOut"></div>
+  </div>
+
+  <div class="poster">
+   <div class="poster-head">
+    <img class="poster-main-img" src="${IMG.recon}" alt="Reconstructie van Ötzi">
+    <div><input id="ptitle" value="${esc(S.poster.title)}"><p class="small">Onderzoeksteam: vul jullie namen in op papier of in het vak hieronder.</p><input id="pnames" value="${esc(S.poster.names||"")}" placeholder="Namen onderzoekers"></div>
+   </div>
+   <div class="poster-grid">
+    ${pBox("appearance","Wie was Ötzi?","Beschrijf zijn uiterlijk en wat we over hem weten.")}
+    ${pBox("clothing","Zijn kleding","Beschrijf wat hij droeg en waarvan het gemaakt was.")}
+    ${pBox("objects","Zijn spullen","Beschrijf minimaal twee belangrijke voorwerpen.")}
+    ${pBox("location","De vindplaats","Beschrijf waar hij gevonden werd en wat je daarover weet.")}
+    ${pBox("injuries","Forensische bevindingen","Beschrijf zijn verwondingen en wat onderzoekers daaruit afleiden.")}
+    ${pBox("known","Feit of vermoeden?","Noem iets dat we zeker weten en iets waarover onderzoekers niet zeker zijn.")}
+   </div>
+   <div class="poster-foot"><b>Bronnen:</b><textarea id="psources" placeholder="Noteer hier de bronnen die jullie voor de poster hebben gebruikt.">${esc(S.poster.sources)}</textarea></div>
+  </div>
+  <div class="callout"><b>Volgende stap:</b> controleer eerst of alle informatie voor jullie poster compleet is. Daarna openen jullie in stap 9 het aparte, invulbare posterblad met het poppetje.</div>
+  <button class="print-hide" onclick="savePoster()">POSTERINFORMATIE CONTROLEREN →</button>
+  <div id="posterOut"></div>
+
+ </div>`;
+
+ if(S.step===9)x=`
+ <div class="card">
+  <span class="badge">FASE 2 • POSTERBLAD</span>
+  <h2>Maak jullie echte Ötzi-poster</h2>
+  <p>Nu gaan jullie de onderzoeksinformatie op een <b>printbaar posterblad</b> zetten. In het midden staat een leeg lichaam. Aan het lichaam zitten labels die jullie online kunnen invullen.</p>
+  <div class="taskbox"><strong>Jullie opdracht:</strong> vul de labels in met informatie uit jullie gekozen bronnen. Noteer bijvoorbeeld waar de verwonding zat, welke kleding Ötzi droeg, welke spullen hij had en welke bijzondere kenmerken jullie hebben gevonden. Na het printen kunnen jullie met potlood of pen extra tekenen, pijlen zetten en details toevoegen.</div>
+  <div class="grid2">
+   <div class="callout"><b>Online invullen</b><br>Typ jullie informatie in de labels. De tekst blijft bewaard zolang je dezelfde browser gebruikt.</div>
+   <div class="callout"><b>Daarna uitprinten</b><br>Het aparte posterblad is ontworpen voor A3 liggend. Bij het printen verschijnen het poppetje én alle ingevulde labels.</div>
+  </div>
+  <div class="callout"><b>Let op:</b> gebruik op het posterblad alleen informatie die jullie uit de bronnen kunnen onderbouwen.</div>
+  <button class="green" onclick="window.open('otzi_posterblad.html','_blank','noopener')">OPEN HET INVULBARE POSTERBLAD →</button>
+  <p class="small">Het posterblad opent als een apart bestand. Daar kun je de labels invullen en vervolgens op <b>PRINT HET POSTERBLAD</b> klikken.</p>
+  <button class="secondary" onclick="go(10)">DOOR NAAR SCHRIJFCONTROLE →</button>
+ </div>`;
+
+ if(S.step===10)x=`
+ <div class="card">
+  <span class="badge">FASE 2 • SCHRIJFCONTROLE</span>
+  <h2>Nu nog een onderzoeksverslag schrijven voor het hoofd van je onderzoeksteam.</h2>
+  <p>Een goede beschrijvende tekst geeft een lezer genoeg informatie om zich een duidelijk beeld te vormen.</p>
+  <div class="colorbar">
+   <div class="pill blue">INFORMATIE<br><small>Klopt het met de bron?</small></div>
+   <div class="pill greenbg">BESCHRIJVEN<br><small>Gebruik je duidelijke zinnen?</small></div>
+   <div class="pill orangebg">BEWIJS<br><small>Kun je aanwijzingen noemen?</small></div>
+   <div class="pill redbg">CONCLUSIE<br><small>Maak je duidelijk wat je weet?</small></div>
+  </div>
+  <div class="grid2">
+   <div class="callout">Lees een tekstvak hardop. Kan iemand die niets over Ötzi weet begrijpen wat je bedoelt?</div>
+   <div class="callout">Staat er niet alleen "Ötzi had een pijlwond", maar ook wat onderzoekers daaruit kunnen afleiden?</div>
+  </div>
+  <button onclick="go(11)">NAAR HET ONDERZOEKSVERSLAG</button>
+ </div>`;
+
+ if(S.step===11)x=`
+ <div class="card">
+  <span class="badge">FASE 2 • ONDERZOEKSVERSLAG</span>
+  <h2>Schrijf het verslag aan de leidinggevende</h2>
+  <p>Gebruik het originele werkblad als leidraad. De drie kernonderdelen zijn: <b>Situatie</b>, <b>Beschrijving</b> en <b>Forensische bevindingen</b>.</p>
+  <div class="callout">Dit verslag is iets anders dan de publieks­poster: op de poster wil je informeren; in het verslag leg je als onderzoeker nauwkeurig vast wat je hebt onderzocht en wat je uit de bevindingen kunt afleiden.</div>
+  <button class="green" onclick="go(12)">OPEN VERSLAGFORMULIER</button>
+ </div>`;
+
+ if(S.step===12)x=`
+ <div class="card">
+  <span class="badge">EINDPRODUCT • ONDERZOEKSVERSLAG</span>
+  <h2>Verslag aan het onderzoeksteam</h2>
+  <div class="poster">
+   <h3>Onderzoek ijsmummie</h3>
+   <label class="small">Titel onderzoek</label><input id="rt" value="${esc(S.report.title||"")}" placeholder="Titel">
+   <label class="small">Naam onderzoekers</label><input id="rn" value="${esc(S.report.names||"")}" placeholder="Namen">
+   <label class="small">Situatie</label><textarea id="rs" placeholder="Omschrijf wie je onderzoekt, waar diegene gevonden is en hoe de vondst is gedaan.">${esc(S.report.situation||"")}</textarea>
+   <label class="small">Beschrijving</label><textarea id="rd" placeholder="Beschrijf het uiterlijk, de kleding, de spullen en opvallende kenmerken.">${esc(S.report.description||"")}</textarea>
+   <label class="small">Forensische bevindingen</label><textarea id="rf" placeholder="Beschrijf welke sporen of verwondingen zijn gevonden en wat onderzoekers daaruit kunnen afleiden. Maak duidelijk wanneer iets niet zeker is.">${esc(S.report.findings||"")}</textarea>
+  </div>
+  <button class="green" onclick="finishReport()">VERSLAG CONTROLEREN</button>
+  <div id="reportOut"></div>
+ </div>`;
+
+ if(S.step===13)x=`
+ <div class="card">
+  <span class="badge">ONDERZOEK AFGEROND</span>
+  <h2>Jullie hebben een onderzoeksdossier gemaakt</h2>
+  <p>Er is nu iets concreets om te laten zien:</p>
+  <div class="grid2">
+   <div class="done">✓ Een publieks­poster over Ötzi</div>
+   <div class="done">✓ Een forensisch onderzoeksverslag</div>
+   <div class="done">✓ Onderzochte bronnen</div>
+   <div class="done">✓ Een onderscheid tussen feiten, aanwijzingen en vermoedens</div>
+  </div>
+  <div class="callout"><b>In de volgende les</b> gaan jullie veel preciezer kijken naar de betrouwbaarheid en ouderdom van bronnen. Jullie hebben vandaag al ervaren dat een bron niet automatisch betrouwbaar is omdat hij er professioneel uitziet.</div>
+  <button class="blue" onclick="window.print()">PRINT DE POSTER / BEWAAR ALS PDF</button>
+ </div>`;
+
+ document.getElementById("screen").innerHTML=x;
+}
+function backStep(){ if(S.step>0){ captureCurrentFields(); S.step--; saveLocal(); render(); window.scrollTo(0,0); } }
+function openSource(letter){
+ const data=SOURCE_DATA[letter];
+ const pageHtml=(data.pages||[]).length?`<div class="source-pages">${data.pages.map((p,i)=>`<div><div class="source-badge">Pagina ${i+1}</div><img src="${p}" alt="Pagina ${i+1} van de bron"></div>`).join("")}</div>`:"";
+ const linkHtml=data.urls&&data.urls.length?`<div class="source-fullnote"><b>Volledige bron bekijken</b><p>Voor deze bron staat hieronder de volledige originele bron. Open hem in een nieuw tabblad en kom daarna terug naar deze les.</p><div class="source-links">${data.urls.map(u=>`<a class="secondary source-smallbtn" href="${u.url}" target="_blank" rel="noopener">${esc(u.label)}</a>`).join("")}</div></div>`:"";
+ document.body.insertAdjacentHTML("beforeend", `<div class="modal" id="sourceModal"><div class="modalbox"><button class="secondary close" onclick="document.getElementById('sourceModal').remove()">Sluiten</button><span class="badge">BRON ${letter}</span><h2>${esc(data.title)}</h2><div class="source-meta"><div class="meta"><b>Maker</b><br>${esc(data.author)}</div><div class="meta"><b>Datum</b><br>${esc(data.date)}</div><div class="meta"><b>Soort bron</b><br>${esc(data.type)}</div></div>${linkHtml}${pageHtml}<div class="source-preview">${data.text}</div><div class="taskbox"><b>Brononderzoeker:</b> noteer twee dingen die je over deze bron kunt ontdekken. Bijvoorbeeld: wie maakte hem, wanneer, waarvoor en waarop de informatie is gebaseerd.</div></div></div>`);
+}
+
+
+const SOURCE_DATA={
+ A:{title:"South Tyrol Museum of Archaeology – Ötzi",author:"South Tyrol Museum of Archaeology",date:"museumwebsite",type:"museum / onderzoeksinformatie",urls:[
+   {label:"Bekijk: Who was Ötzi?",url:"https://www.iceman.it/en/oetzi/who-was-oetzi"},
+   {label:"Bekijk: kleding",url:"https://www.iceman.it/en/oetzi/clothing"},
+   {label:"Bekijk: uitrusting",url:"https://www.iceman.it/en/oetzi/equipment"}
+ ],text:`<p>Het museum geeft informatie over Ötzi, zijn uiterlijk, kleding, uitrusting, vindplaats en wetenschappelijk onderzoek.</p><p><b>Onderzoeksvraag:</b> wat valt je op aan de maker van deze bron en aan de manier waarop de informatie wordt gepresenteerd?</p>`},
+ B:{title:"National Geographic – Ötzi the Iceman",author:"Jennifer Pinkowski / National Geographic",date:"15 september 2021",type:"wetenschapsjournalistiek",urls:[
+   {label:"Open de volledige bron bij National Geographic",url:"https://www.nationalgeographic.com/premium/article/otzi-the-iceman-what-we-know-3-decades-after-his-discovery"}
+ ],text:`<p>National Geographic beschrijft wat onderzoekers in de decennia na de vondst over Ötzi te weten zijn gekomen. Het artikel bespreekt onder meer zijn verwonding, kleding, uitrusting en onderzoek naar zijn lichaam.</p><p>De volledige journalistieke bron kun je via de knop hierboven openen.</p>`},
+ C:{title:"Wie was Ötzi? – aangeleverd bronmateriaal",author:"Jennifer Pinkowski",date:"21 september 2021",type:"aangeleverde educatieve bron",urls:[],pages:["afbeeldingen/bron_C_pagina_1.jpg","afbeeldingen/bron_C_pagina_2.jpg","afbeeldingen/bron_C_pagina_3.jpg","afbeeldingen/bron_C_pagina_4.jpg","afbeeldingen/bron_C_pagina_5.jpg","afbeeldingen/bron_C_pagina_6.jpg","afbeeldingen/bron_C_pagina_7.jpg","afbeeldingen/bron_C_pagina_8.jpg","afbeeldingen/bron_C_pagina_9.jpg"],text:`<p>Dit is het volledige door de leerkracht aangeleverde bronmateriaal. De pagina's hierboven zijn de bron zelf; je kunt ze vergroten en lezen.</p><p>De bundel bevat informatie over wie Ötzi was, zijn gezondheid, kleding, bezittingen, verwondingen en prehistorische kleding.</p>`},
+ D:{title:"Wikipedia – Ötzi",author:"Wikipedia-auteurs",date:"online, wijzigbaar",type:"online encyclopedie",urls:[
+   {label:"Open de volledige Wikipedia-pagina",url:"https://en.wikipedia.org/wiki/%C3%96tzi"}
+ ],text:`<p>Wikipedia geeft een uitgebreid overzicht van informatie over Ötzi. De inhoud kan door verschillende gebruikers worden aangepast en bevat verwijzingen naar andere bronnen.</p><p>De volledige pagina kun je via de knop hierboven openen.</p>`},
+ E:{title:"The Curse of the Ötzi Mummy",author:"Marcus Lowth / UFO Insight",date:"20 juli 2018, bijgewerkt 28 september 2021",type:"mysterie-/conspiratieartikel",urls:[
+   {label:"Open het volledige artikel",url:"https://www.ufoinsight.com/conspiracy/unexplained/curse-otzi-mummy"}
+ ],text:`<p>Deze bron bespreekt het verhaal dat rond Ötzi een zogenaamde vloek zou bestaan. Het artikel is bewust opgenomen als bron met een ander doel en andere aanpak dan de museum- en wetenschapsbronnen.</p><p>Open de volledige bron en kijk zelf welke aanwijzingen je vindt over maker, doel en onderbouwing.</p>`},
+ F:{title:"VROEGER & ZO – Ötzi, de ijsmummie",author:"VROEGER & ZO / Teleac / NTR",date:"10 januari 2007 • 14 min 29 sec",type:"video / televisieprogramma",urls:[
+   {label:"BEKIJK HET VOLLEDIGE FILMPJE bij Beeld & Geluid",url:"https://schatkamer.beeldengeluid.nl/serie/2101608030021627131/vroeger-and-zo/aflevering/2101608050035612531"}
+ ],text:`<p>Dit is een Nederlandse televisieaflevering over Ötzi. De aflevering gebruikt nagespeelde scènes en bespreekt wat onderzoekers door wetenschappelijk onderzoek aan de mummie te weten zijn gekomen.</p><p><b>Let op:</b> een video is een ander soort bron dan een museumtekst of encyclopedie. Kijk daarom niet alleen naar wat er wordt verteld, maar ook naar wie het programma maakte, wanneer het is gemaakt en hoe de informatie wordt gepresenteerd.</p>`}
+};
+
+function eCard2(icon,title,text,img){const done=!!S.evidenceLog[title];return `<div class="evidence-card"><div class="e-imgwrap"><img src="${img}" alt="${title}" loading="eager" onerror="this.style.display='none';this.parentElement.classList.add('img-fallback')"><span class="img-caption">${done?'✓ Vastgelegd':'Onderzoeksbeeld'}</span></div><div class="e-body"><h3>${icon} ${title}</h3><p>${text}</p><button class="orange" onclick="chooseEvidence('${title}','${img}')">${done?'BEKIJK / WIJZIG':'OPEN AANWIJZING'}</button></div></div>`}
+function chooseEvidence(title,img){const old=S.evidenceLog[title]||{};S.evidence={title,img,sourceText:old.sourceText||"",observation:old.observation||"",meaning:old.meaning||""};go(4)}
+function saveNotes(){S.notes={who:saveField("who"),what:saveField("what"),where:saveField("where"),why:saveField("why")};go(3)}
+function saveEvidence(){const title=S.evidence.title;S.evidence.sourceText=saveField("sourceText");S.evidence.observation=saveField("observation");S.evidence.meaning=saveField("meaning");S.evidenceLog[title]={img:S.evidence.img,sourceText:S.evidence.sourceText,observation:S.evidence.observation,meaning:S.evidence.meaning};S.evidence={};go(3)}
+function sourceCard(letter,title,type,desc,site,img){
+ const done=!!S.openedSources[letter];
+ return `<div class="source ${done?'selected-source':''}" id="source-${letter}"><div class="source-type">BRON ${letter} • ${type}</div><h3>${title}</h3><img src="${img}" alt="" style="width:100%;height:130px;object-fit:cover;border-radius:9px;margin:8px 0"><p>${desc}</p><p class="small">Bronvermelding: ${site}</p><p><b>Jouw taak:</b> bekijk de volledige bron en noteer daarna wat je opvalt.</p><button class="secondary" onclick="openSource('${letter}')">BEKIJK DE BRON</button><button class="secondary" onclick="markSource('${letter}')">${done?'✓ BRON BEKEKEN':'KLAAR MET DEZE BRON'}</button></div>`
+}
+function markSource(l){
+ S.openedSources[l]=true;
+ render();
+ setTimeout(()=>{const el=document.getElementById('source-'+l);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},50);
+}
+function saveSourceRatings(){
+ let filled=0; ["A","B","C","D","E","F"].forEach(l=>{S.sources[l]=saveField("rate"+l); if(S.sources[l]) filled++;});
+ if(filled<6){document.getElementById("ratingsOut").innerHTML=`<div class="warn">Maak voor alle zes bronnen eerst een keuze. Daarna kun je naar het posteratelier.</div>`;return;}
+ document.getElementById("ratingsOut").innerHTML=`<div class="done"><b>Bronkeuze vastgelegd.</b> Jullie gekozen bronnen blijven beschikbaar in het posteratelier. Je kunt daar de volledige bronnen opnieuw bekijken. Er is hier nog geen goed/fout-score: in de volgende les onderzoeken jullie preciezer welke kenmerken een bron betrouwbaarder of minder betrouwbaar maken.</div><button class="green" onclick="go(7)">NAAR DE POSTEROPDRACHT</button>`
+}
+function chosenSourceCards(){
+ const letters=["A","B","C","D","E","F"].filter(l=>S.sources[l]==="gebruiken");
+ if(!letters.length) return `<div class="warn">Je hebt bij de broncheck nog geen bron gekozen als 'gebruiken'. Ga eventueel terug naar de broncheck en kies de bronnen die je voor je poster wilt gebruiken.</div>`;
+ return letters.map(l=>{const d=SOURCE_DATA[l];return `<div class="source-view-card"><span class="source-badge">BRON ${l}</span><h3>${esc(d.title)}</h3><p class="small">${esc(d.type)} • ${esc(d.author)}</p><button class="secondary source-smallbtn" onclick="openSource('${l}')">BEKIJK DE VOLLEDIGE BRON</button></div>`}).join("");
+}
+function searchExtraSource(){
+ const q=saveField("extraQuery").trim()||"Ötzi archaeology museum";
+ window.open("https://www.google.com/search?q="+encodeURIComponent(q),"_blank","noopener");
+}
+function saveExtraSource(){
+ S.extraSource={title:saveField("extraTitle").trim(),url:saveField("extraUrl").trim(),why:saveField("extraWhy").trim()};
+ const out=document.getElementById("extraSourceOut");
+ if(!S.extraSource.title||!S.extraSource.url){out.innerHTML=`<div class="warn" style="margin-top:10px">Vul minstens de naam en de link van je extra bron in.</div>`;return;}
+ out.innerHTML=`<div class="done" style="margin-top:10px"><b>Extra bron toegevoegd.</b> Je kunt hem opnieuw bekijken via de knop hieronder.</div><button class="secondary source-smallbtn" onclick="window.open('${esc(S.extraSource.url)}','_blank','noopener')">BEKIJK EXTRA BRON</button>`;
+ if(!S.poster.sources.includes(S.extraSource.title)) S.poster.sources=(S.poster.sources?S.poster.sources+'\n':'')+S.extraSource.title+' — '+S.extraSource.url;
+}
+
+function pBox(id,title,placeholder){return `<div class="poster-box"><h3>${title}</h3><textarea id="p${id}" placeholder="${placeholder}">${esc(S.poster[id])}</textarea></div>`}
+function savePoster(){
+S.poster={title:saveField("ptitle"),names:saveField("pnames"),appearance:saveField("pappearance"),clothing:saveField("pclothing"),objects:saveField("pobjects"),location:saveField("plocation"),injuries:saveField("pinjuries"),known:saveField("pknown"),sources:saveField("psources")};
+saveLocal();
+let missing=["appearance","clothing","objects","location","injuries"].filter(k=>!S.poster[k].trim()).length;
+document.getElementById("posterOut").innerHTML=missing?`<div class="warn">Er ontbreken nog ${missing} verplichte onderdelen. De originele posteropdracht vraagt minimaal om kleding, voorwerpen, locatie en verwondingen. Vul deze eerst aan.</div>`:`<div class="done">De poster bevat alle verplichte onderdelen. Lees hem nu hardop met je onderzoekspartner en controleer of de informatie beschrijvend én onderbouwd is.</div><button class="green" onclick="go(9)">NAAR HET POSTERBLAD →</button>`
+}
+function finishReport(){
+S.report={title:saveField("rt"),names:saveField("rn"),situation:saveField("rs"),description:saveField("rd"),findings:saveField("rf")};
+saveLocal();
+let fields=["title","names","situation","description","findings"],filled=fields.filter(k=>S.report[k].trim()).length;
+document.getElementById("reportOut").innerHTML=filled===5?`<div class="done"><b>Verslag compleet.</b> Controleer nog één keer of je duidelijk onderscheid maakt tussen wat je bron zegt en wat je zelf afleidt.</div><button class="green" onclick="go(13)">ONDERZOEK AFRONDEN</button>`:`<div class="warn">Vul alle vijf onderdelen in voordat je het verslag inlevert.</div>`
+}
+
+const ACCESS_CODE = "onderzoek-ijs";
+const STATE_KEY = "otzi_onderzoek_state_v11";
+const ACCESS_KEY = "otzi_access_unlocked_v1";
+
+function cloneDefaults(){
+  return {step:0,phase:1,chosen:[],notes:{who:"",what:"",where:"",why:""},evidence:{},evidenceLog:{},sources:{},openedSources:{},extraSource:{title:"",url:"",why:""},poster:{title:"Ötzi: de ijsmummie",names:"",appearance:"",clothing:"",objects:"",location:"",injuries:"",known:"",sources:""},report:{title:"",names:"",situation:"",description:"",findings:""}};
+}
+function normalizeState(data){
+  const d=cloneDefaults();
+  if(!data || typeof data!=="object") return d;
+  const merged=Object.assign(d,data);
+  merged.notes=Object.assign(d.notes,data.notes||{});
+  merged.evidence=Object.assign(d.evidence,data.evidence||{});
+  merged.evidenceLog=Object.assign({},data.evidenceLog||{});
+  merged.sources=Object.assign({},data.sources||{});
+  merged.openedSources=Object.assign({},data.openedSources||{});
+  merged.extraSource=Object.assign(d.extraSource,data.extraSource||{});
+  merged.poster=Object.assign(d.poster,data.poster||{});
+  merged.report=Object.assign(d.report,data.report||{});
+  return merged;
+}
+function saveLocal(){
+  try{
+    captureCurrentFields(false);
+    localStorage.setItem(STATE_KEY, JSON.stringify(S));
+  }catch(e){ console.warn("Lokale opslag mislukt",e); }
+}
+function loadLocal(){
+  try{
+    const raw=localStorage.getItem(STATE_KEY);
+    if(!raw) return false;
+    Object.assign(S,normalizeState(JSON.parse(raw)));
+    return true;
+  }catch(e){ console.warn("Lokale voortgang kon niet worden geladen",e); return false; }
+}
+function captureCurrentFields(shouldSave=true){
+  const set=(id,fn)=>{const el=document.getElementById(id); if(el && typeof fn==='function') fn(el.value||'');};
+  set("who",v=>S.notes.who=v); set("what",v=>S.notes.what=v); set("where",v=>S.notes.where=v); set("why",v=>S.notes.why=v);
+  set("sourceText",v=>S.evidence.sourceText=v); set("observation",v=>S.evidence.observation=v); set("meaning",v=>S.evidence.meaning=v);
+  ["A","B","C","D","E","F"].forEach(l=>set("rate"+l,v=>S.sources[l]=v));
+  set("extraTitle",v=>S.extraSource.title=v); set("extraUrl",v=>S.extraSource.url=v); set("extraWhy",v=>S.extraSource.why=v);
+  set("ptitle",v=>S.poster.title=v); set("pnames",v=>S.poster.names=v); set("pappearance",v=>S.poster.appearance=v); set("pclothing",v=>S.poster.clothing=v); set("pobjects",v=>S.poster.objects=v); set("plocation",v=>S.poster.location=v); set("pinjuries",v=>S.poster.injuries=v); set("pknown",v=>S.poster.known=v); set("psources",v=>S.poster.sources=v);
+  set("rt",v=>S.report.title=v); set("rn",v=>S.report.names=v); set("rs",v=>S.report.situation=v); set("rd",v=>S.report.description=v); set("rf",v=>S.report.findings=v);
+  if(shouldSave){try{localStorage.setItem(STATE_KEY,JSON.stringify(S));}catch(e){}}
+}
+function restoreIntoPage(){ render(); }
+function unlockSite(){
+  const input=document.getElementById("accessCodeInput");
+  const code=(input.value||"").trim().toLowerCase();
+  if(code===ACCESS_CODE){
+    localStorage.setItem(ACCESS_KEY,"1");
+    document.getElementById("accessGate").style.display="none";
+    document.getElementById("appRoot").style.display="block";
+    loadLocal();
+    render();
+    setTimeout(()=>{try{document.getElementById("accessCodeInput").value="";}catch(e){}},0);
+  }else{
+    document.getElementById("accessMsg").textContent="Deze toegangscode klopt niet.";
+    input.focus();
+  }
+}
+function initSite(){
+  const gate=document.getElementById("accessGate"), app=document.getElementById("appRoot");
+  if(localStorage.getItem(ACCESS_KEY)==="1"){
+    gate.style.display="none"; app.style.display="block"; loadLocal(); render();
+  }else{
+    gate.style.display="flex"; app.style.display="none";
+    document.getElementById("accessCodeInput").addEventListener("keydown",e=>{if(e.key==="Enter")unlockSite();});
+    document.getElementById("accessCodeInput").focus();
+  }
+}
+function pretty(v){return esc(v||"").replace(/\n/g,"<br>");}
+function dossierSection(title, rows){
+  return `<section class="dossier-section"><h2>${esc(title)}</h2>${rows.map(r=>`<div class="dossier-row"><h3>${esc(r[0])}</h3><div>${pretty(r[1])||'<em>Niet ingevuld</em>'}</div></div>`).join("")}</section>`;
+}
+function downloadDossier(){
+  captureCurrentFields();
+  saveLocal();
+  const safeDate=new Date().toISOString().slice(0,10);
+  const filename=`Otzi_onderzoeksdossier_${safeDate}.html`;
+  const payload=JSON.stringify(S).replace(/</g,"\\u003c");
+  const chosen=Object.entries(S.sources||{}).filter(([k,v])=>v).map(([k,v])=>`Bron ${k}: ${v}`).join("\\n");
+  const evidenceRows=["Kleding","Koperen bijl","Pijlverwonding","Vindplaats"].map(k=>{const e=S.evidenceLog[k]||{};return [k,`Bron zegt / laat zien:\n${e.sourceText||""}\n\nWaarneming:\n${e.observation||""}\n\nBetekenis:\n${e.meaning||""}`]});
+  const htmlDoc=`<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>De Zaak Ötzi – onderzoeksdossier</title><style>body{font-family:Arial,sans-serif;max-width:900px;margin:40px auto;padding:0 24px;color:#202a33;line-height:1.5}h1{font-family:Georgia,serif;font-size:34px;margin-bottom:6px}.intro{color:#657383}.dossier-section{border-top:2px solid #d7dde3;padding-top:18px;margin-top:28px}.dossier-row{background:#f7f9fa;border:1px solid #e0e5e9;border-radius:10px;padding:14px;margin:10px 0}.dossier-row h3{margin:0 0 7px;font-size:16px}.small{color:#657383;font-size:12px}hr{border:0;border-top:1px solid #ddd;margin:25px 0}</style></head><body><h1>De zaak Ötzi</h1><p class="intro">Dit is het opgeslagen onderzoeksdossier van de interactieve les. Je kunt dit bestand bewaren als naslagwerk en later opnieuw in de website laden via <b>Onderzoek hervatten</b>.</p><p class="small">Opgeslagen op ${esc(new Date().toLocaleString("nl-NL"))}. Huidige stap: ${esc(String(S.step))}.</p>${dossierSection("WWWW-aantekeningen",[["Wie?",S.notes.who],["Wat?",S.notes.what],["Waar?",S.notes.where],["Waarom?",S.notes.why]])}${dossierSection("Vier forensische aanwijzingen",evidenceRows)}${dossierSection("Broncheck",[["Keuzes",chosen]])}${dossierSection("Extra bron",[["Naam",S.extraSource.title],["Link",S.extraSource.url],["Waarom gebruiken?",S.extraSource.why]])}${dossierSection("Posteronderzoek",[["Titel",S.poster.title],["Onderzoekers",S.poster.names],["Wie was Ötzi?",S.poster.appearance],["Kleding",S.poster.clothing],["Spullen",S.poster.objects],["Vindplaats",S.poster.location],["Forensische bevindingen",S.poster.injuries],["Feit of vermoeden?",S.poster.known],["Bronnen",S.poster.sources]])}${dossierSection("Onderzoeksverslag",[["Titel",S.report.title],["Onderzoekers",S.report.names],["Situatie",S.report.situation],["Beschrijving",S.report.description],["Forensische bevindingen",S.report.findings]])}<hr><p class="small">Bewaar dit bestand bijvoorbeeld in Google Drive. Voor verder werken op een andere dag: open de website, kies <b>Onderzoek hervatten</b> en selecteer dit bestand.</p><script type="application/json" id="otzi-state">${payload}${"<"+"/script>"}</body></html>`;
+  const blob=new Blob([htmlDoc],{type:"text/html;charset=utf-8"});
+  const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+function importDossier(event){
+  const file=event.target.files&&event.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const text=String(reader.result||"");
+      let data=null;
+      const endTag="<"+"/script>";
+      const m=text.match(new RegExp("<script[^>]*id=[\"']otzi-state[\"'][^>]*>([\\s\\S]*?)"+endTag,"i"));
+      if(m){data=JSON.parse(m[1].replace(/\\u003c/g,"<"));}
+      else if(file.name.toLowerCase().endsWith(".json")){data=JSON.parse(text);}
+      if(!data) throw new Error("Geen opgeslagen Ötzi-onderzoek gevonden.");
+      Object.assign(S,normalizeState(data));
+      saveLocal(); render();
+      alert("Het onderzoek is hervat vanaf de opgeslagen voortgang.");
+    }catch(err){alert("Dit bestand kan niet als Ötzi-onderzoeksdossier worden geopend."); console.error(err);}
+    event.target.value="";
+  };
+  reader.readAsText(file);
+}
+function clearProgress(){
+  if(!confirm("Weet je zeker dat je alle voortgang van dit onderzoek wilt wissen?")) return;
+  localStorage.removeItem(STATE_KEY);
+  Object.assign(S,normalizeState(null));
+  render();
+}
+document.addEventListener("input",()=>{clearTimeout(window.__otziSaveTimer);window.__otziSaveTimer=setTimeout(()=>saveLocal(),350);});
+document.addEventListener("change",()=>saveLocal());
+window.addEventListener("beforeunload",()=>saveLocal());
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==='hidden')saveLocal();});
+
+initSite();
+</script>
+<div style="max-width:1080px;margin:0 auto 24px;padding:0 30px;color:#657383;font-size:12px">Techniek: afbeeldingen staan in de map <em>afbeeldingen</em> naast dit bestand. Daardoor blijft de les licht en betrouwbaar te openen.</div></body>
+</html>
