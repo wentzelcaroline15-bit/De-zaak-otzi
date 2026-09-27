@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+<rect width="800" height="450" rx="28" fill="#eaf3f7"/>
+<rect x="70" y="65" width="660" height="320" rx="20" fill="#163b4d"/>
+<circle cx="400" cy="225" r="76" fill="#f29b38"/>
+<path d="M375 180 L375 270 L455 225 Z" fill="white"/>
+<text x="400" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="white">VROEGER &amp; ZO</text>
+<text x="400" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="white">Ötzi, de ijsmummie</text>
+</svg>
